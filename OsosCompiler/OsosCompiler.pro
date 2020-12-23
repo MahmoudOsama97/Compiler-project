@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    parser.cpp \
     scanner.cpp
 
 HEADERS += \

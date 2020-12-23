@@ -4,6 +4,7 @@
 string token;
 stateType state = idle;
 string out = "";
+string parserInput = "";
 ofstream ofile;
 string RES_WORDS[8] = { "if","then","else","end","repeat","until","read","write" };
 
@@ -15,6 +16,12 @@ Scanner::Scanner()
 {
 
 }
+
+string Scanner::getParserInput()
+{
+    return parserInput;
+}
+
 void Scanner::done()
 {
     if (state == start)
@@ -27,11 +34,13 @@ void Scanner::done()
     {
         ofile << token << " , NUMBER \n";
         out += token + " , NUMBER \n";
+        parserInput += "number{" + token + "} ";
     }
     else if (state == id)
     {
         ofile << token << " , IDENTIFIER \n";
         out += token + " , IDENTIFIER \n";
+        parserInput += "identifier{" + token + "} ";
     }
     else if (state == comment)
     {
@@ -43,42 +52,52 @@ void Scanner::done()
         if (token==":="){
             ofile << token << " , ASSIGN \n";
             out += token + " , ASSIGN \n";
+            parserInput += ":= ";
         }
         else if(token=="-"){
             ofile << token << " , MINUS \n";
             out += token + " , MINUS \n";
+            parserInput += "- ";
         }
         else if(token=="+"){
             ofile << token << " , PLUS \n";
             out += token + " , PLUS \n";
+            parserInput += "+ ";
         }
         else if(token==";"){
-            ofile << token << " , SEMI \n";
-            out += token + " , SEMI \n";
+            ofile << token << " , SEMICOLON \n";
+            out += token + " , SEMICOLON \n";
+            parserInput += "; ";
         }
         else if(token=="("){
-            ofile << token << " , LEFTBRACKET \n";
-            out += token + " , LEFTBRACKET \n";
+            ofile << token << " , OPENBRACKET \n";
+            out += token + " , OPENBRACKET \n";
+            parserInput += "( ";
         }
         else if(token==")"){
-            ofile << token << " , RIGHTBRACKET \n";
-            out += token + " , RIGHTBRACKET \n";
+            ofile << token << " , CLOSEDBRACKET \n";
+            out += token + " , CLOSEDBRACKET \n";
+            parserInput += ") ";
         }
         else if(token=="*"){
-            ofile << token << " , MULTIPLY \n";
-            out += token + " , MULTIPLY \n";
+            ofile << token << " , MULT \n";
+            out += token + " , MULT \n";
+            parserInput += "* ";
         }
         else if(token=="/"){
-            ofile << token << " , DIVID \n";
-            out += token + " , DIVID \n";
+            ofile << token << " , DIV \n";
+            out += token + " , DIV \n";
+            parserInput += "/ ";
         }
         else if(token=="="){
             ofile << token << " , EQUAL \n";
             out += token + " , EQUAL \n";
+            parserInput += "= ";
         }
         else if(token=="<"){
-            ofile << token << " , SMALLER \n";
-            out += token + " , SMALLER \n";
+            ofile << token << " , LESSTHAN \n";
+            out += token + " , LESSTHAN \n";
+            parserInput += "< ";
         }
     }
     else if (state == reserved)
@@ -86,39 +105,47 @@ void Scanner::done()
         if (token=="if"){
             ofile << token << " , IF \n";
             out += token + " , IF \n";
+            parserInput += "if ";
         }
         else if(token=="then"){
             ofile << token << " , THEN \n";
             out += token + " , THEN \n";
+            parserInput += "then ";
         }
         else if(token=="repeat"){
             ofile << token << " , REPEAT \n";
             out += token + " , REPEAT \n";
+            parserInput += "repeat ";
         }
         else if(token=="until"){
             ofile << token << " , UNTIL \n";
             out += token + " , UNTIL \n";
+            parserInput += "until ";
         }
         else if(token=="read"){
             ofile << token << " , READ \n";
             out += token + " , READ \n";
+            parserInput += "read ";
         }
         else if(token=="write"){
             ofile << token << " , WRITE \n";
             out += token + " , WRITE \n";
+            parserInput += "write ";
         }
         else if(token=="end"){
             ofile << token << " , END \n";
             out += token + " , END \n";
+            parserInput += "end ";
         }
         else if(token=="else"){
             ofile << token << " , ELSE \n";
             out += token + " , ELSE \n";
+            parserInput += "else ";
         }
-        else {
-            ofile << token << " , Reserved Word \n";
-        out += token + " , Reserved Word \n";
-        }
+//        else {
+//            ofile << token << " , Reserved Word \n";
+//        out += token + " , Reserved Word \n";
+//        }
     }
     else if (state = error)
     {

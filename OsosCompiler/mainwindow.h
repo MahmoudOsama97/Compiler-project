@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QPlainTextEdit>
+#include <QGraphicsScene>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsRectItem>
 #include <QPushButton>
 #include <QToolBar>
 #include <Qt>
@@ -11,6 +14,7 @@
 #include <QString>
 #include <QDebug>
 #include <scanner.h>
+#include "parser.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,13 +25,30 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 private:
     Ui::MainWindow *ui;
-    QPlainTextEdit *Input;
-    QPlainTextEdit *Output;
+    //QPlainTextEdit *Input;
+    //QPlainTextEdit *Output;
     QToolBar *Toolbar;
     QSplitter *Splitter ;
     Scanner *scanner;
+
+    //QGraphicsView *view;
+    QGraphicsScene *scene;
+    QGraphicsEllipseItem *ellipse;
+    QGraphicsRectItem *rect;
+    QGraphicsTextItem *textTitle;
+    QGraphicsTextItem *textDetails;
+
+    int TempX;
+    int TempY;
+
+    int W = 80;
+    int H =50;
+
+    int X;
+    int Y;
 public:
     MainWindow(QWidget *parent = nullptr);
+    void IterateOverTree(Node* Current);
     void init_toolbar(void);
     void init_ui(void);
     ~MainWindow();

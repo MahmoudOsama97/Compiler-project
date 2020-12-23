@@ -32,6 +32,7 @@ public:
     void done(void);
     QString getStringFile(void);
     QString printTokenList(string input);
+    string getParserInput();
     bool isDigit(char);
     bool isLetter(char);
     bool isSpace(char);
