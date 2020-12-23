@@ -1,3 +1,36 @@
+{ Sample program in TINY language computes factorial } , COMMENT 
 read , READ 
 x , IDENTIFIER 
 ; , SEMICOLON 
+{input an integer } , COMMENT 
+if , IF 
+0 , NUMBER 
+< , LESSTHAN 
+x , IDENTIFIER 
+then , THEN 
+{don`t compute if x <= 0 } , COMMENT 
+fact , IDENTIFIER 
+:= , ASSIGN 
+1 , NUMBER 
+; , SEMICOLON 
+repeat , REPEAT 
+fact , IDENTIFIER 
+:= , ASSIGN 
+fact , IDENTIFIER 
+* , MULT 
+x , IDENTIFIER 
+; , SEMICOLON 
+x , IDENTIFIER 
+:= , ASSIGN 
+x , IDENTIFIER 
+- , MINUS 
+1 , NUMBER 
+until , UNTIL 
+x , IDENTIFIER 
+= , EQUAL 
+0 , NUMBER 
+; , SEMICOLON 
+write , WRITE 
+fact , IDENTIFIER 
+{ output factorial of x } , COMMENT 
+end , END 

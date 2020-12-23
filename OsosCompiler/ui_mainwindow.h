@@ -25,11 +25,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QGraphicsView *graphicsView;
     QPlainTextEdit *Input;
     QPlainTextEdit *Output;
+    QGraphicsView *graphicsView;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,26 +39,30 @@ public:
         MainWindow->resize(629, 454);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        gridLayoutWidget = new QWidget(centralwidget);
-        gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(70, 30, 471, 281));
-        gridLayout = new QGridLayout(gridLayoutWidget);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
+        centralwidget->setSizePolicy(sizePolicy);
+        gridLayout = new QGridLayout(centralwidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        graphicsView = new QGraphicsView(gridLayoutWidget);
-        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-
-        gridLayout->addWidget(graphicsView, 0, 1, 2, 1);
-
-        Input = new QPlainTextEdit(gridLayoutWidget);
+        Input = new QPlainTextEdit(centralwidget);
         Input->setObjectName(QString::fromUtf8("Input"));
 
         gridLayout->addWidget(Input, 0, 0, 1, 1);
 
-        Output = new QPlainTextEdit(gridLayoutWidget);
+        Output = new QPlainTextEdit(centralwidget);
         Output->setObjectName(QString::fromUtf8("Output"));
 
         gridLayout->addWidget(Output, 1, 0, 1, 1);
+
+        graphicsView = new QGraphicsView(centralwidget);
+        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+        QBrush brush(QColor(0, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        graphicsView->setBackgroundBrush(brush);
+
+        gridLayout->addWidget(graphicsView, 0, 1, 2, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
