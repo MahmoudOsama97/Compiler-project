@@ -1,0 +1,46 @@
+#ifndef PARSER_H
+#define PARSER_H
+
+#include <QString>
+#include <QDebug>
+#include <vector>
+#include <QFile>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <iostream>
+#include <string>
+#include <fstream>
+
+
+
+using namespace std;
+
+enum stmtTypes {IF, REPEAT, ASSIGN, READ, WRITE, ERROR};
+        
+        
+class Parser
+{
+private:
+
+public:
+    Parser();
+    void program();
+    void stmt_seq();
+    void stmt();
+    void if_stmt();
+    void repeat_stmt();
+    void assign_stmt();
+    void read_stmt();
+    void write_stmt();
+    void exp();
+    void comparison_op();
+    void simple_exp();
+    void addop();
+    void term();
+    void mulop();
+    void factor();
+    void match(string s);
+  
+};
+
+#endif // PARSER_H
