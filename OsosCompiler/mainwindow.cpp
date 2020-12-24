@@ -125,7 +125,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::start_Scan()
 {
-    scene->clear();
+    ui->graphicsView->clearFocus();
+    scene->clearSelection();
     X = 0;
     Y = 0;
     QString result = this->scanner->printTokenList(ui->Input->toPlainText().toStdString());

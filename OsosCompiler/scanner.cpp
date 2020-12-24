@@ -157,6 +157,7 @@ QString Scanner::printTokenList(string input)
 {
     ofile.open("scanner_output.txt");
     out = "";
+    parserInput = "";
     char x;
     state = start;
     for (int i = 0; i < input.size(); i++)
