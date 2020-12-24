@@ -108,6 +108,7 @@ void MainWindow::IterateOverTree(Node *Current)
             scene->addLine(bedayaX+40,bedayaY-25,X+100,Y+25,lin);
             X+=100;
             TempX = X;
+
             IterateOverTree(*it);
         }
     }
@@ -127,8 +128,13 @@ void MainWindow::start_Scan()
 {
     ui->graphicsView->clearFocus();
     scene->clearSelection();
+    scene->clear();
+    scene->update();
     X = 0;
     Y = 0;
+    TempY=0;
+    TempX=0;
+
     QString result = this->scanner->printTokenList(ui->Input->toPlainText().toStdString());
 
     Node* Tree = new Node();
@@ -145,6 +151,7 @@ void MainWindow::start_Scan()
     qDebug()<<result;
     ui->Output->clear();
     ui->Output->setPlainText(result);
+    delete Tree;
 }
 void MainWindow::start_Scan_File()
 {

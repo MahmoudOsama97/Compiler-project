@@ -42,7 +42,9 @@ public:
         delete Left;
         delete Right;
         delete ElsePart;
-    }
+        NextTo.clear();
+
+}
 };
 
 class Parser
@@ -115,7 +117,7 @@ private:
         }
         else
         {
-             //QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+             QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
         }
     }
 
@@ -138,7 +140,10 @@ private:
         while (token == ";")
         {
             match(";");
-            StmtSeq->NextTo.push_back(stmt());
+            Node* vStmt = new Node();
+            vStmt=stmt();
+            if(vStmt!=NULL)
+            StmtSeq->NextTo.push_back(vStmt);
         }
         return StmtSeq;
     }
@@ -161,7 +166,8 @@ private:
         case WRITE:
             Stmt = write_stmt(); break;
         case ERROR: // el mafrod el repeat leha 2 children
-            QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+           // QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+           return NULL;
         default:
             break;
         }
