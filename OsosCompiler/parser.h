@@ -45,7 +45,7 @@ public:
         delete ElsePart;
         NextTo.clear();
 
-}
+    }
 };
 
 class Parser
@@ -101,6 +101,7 @@ private:
     string tokentemp;
     string value;
     bool drawFlag=1;
+    int conditionFlag = 0;
 
 
     void match(string s)
@@ -125,14 +126,21 @@ private:
                 token = tokentemp;
             }
 
+            if(z == tokensvec.size() - 1)
+            {
+                token = "";
+                return;
+            }
+
             mypair = make_pair(token , value );
             v.push_back(mypair);
+
         }
         else
         {
             cout<<"fe error yaba\n";
-             drawFlag=0;
-             QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+            drawFlag=0;
+            QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
         }
     }
 
@@ -158,7 +166,12 @@ private:
             Node* vStmt = new Node();
             vStmt=stmt();
             if(vStmt!=NULL)
-            StmtSeq->NextTo.push_back(vStmt);
+                StmtSeq->NextTo.push_back(vStmt);
+        }
+        if(token == "end" && conditionFlag == 0)
+        {
+            drawFlag=0;
+            QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
         }
         return StmtSeq;
     }
@@ -181,8 +194,9 @@ private:
         case WRITE:
             Stmt = write_stmt(); break;
         case ERROR: // el mafrod el repeat leha 2 children
-            QMessageBox::warning(NULL,"Language Error","Not Accepted ");
-           return NULL;
+            QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+            drawFlag=0;
+            return NULL;
         default:
             break;
         }
@@ -193,6 +207,7 @@ private:
     //done
     Node* if_stmt()
     {
+        conditionFlag++;
         Node* IfStmt = new Node();
         IfStmt->Type = IfStmt->Box;
         IfStmt->Title = "if";
@@ -203,13 +218,14 @@ private:
         if (token == "else")
         {
             match("else");
-            //Node* Else = new Node();
-            //Else->Left = stmt_seq();
-            //Else->Title = "else";
+            //            Node* Else = new Node();
+            //            Else->Left = stmt_seq();
+            //            Else->Title = "else";
             IfStmt->ElsePart = stmt_seq();
         }
         match("end");
         cout << "if statement end" << endl;
+        conditionFlag--;
         return IfStmt;
     }
 

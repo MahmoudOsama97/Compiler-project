@@ -31,8 +31,10 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::init_toolbar()
 {
     this->addToolBar(Qt::TopToolBarArea,Toolbar);
-    QAction * ScanAction = Toolbar->addAction("Parse");
+    QAction * ScanAction = Toolbar->addAction("Scan");
     connect(ScanAction,SIGNAL(triggered(bool)),this,SLOT(start_Scan()));
+    QAction * ParseAction = Toolbar->addAction("Parse");
+    connect(ParseAction,SIGNAL(triggered(bool)),this,SLOT(parse()));
     QAction * OpenAction = Toolbar->addAction("Load File");
     connect(OpenAction,SIGNAL(triggered(bool)),this,SLOT(start_Scan_File()));
     //signal
@@ -43,9 +45,9 @@ void MainWindow::IterateOverTree(Node *Current)
     //colors
 
     QBrush cyanBrush(Qt::cyan);
-    QBrush magentaBrush(Qt::magenta);
+    QBrush magentaBrush(Qt::red);
     QPen   black(Qt::black);
-    QPen   line(Qt::darkYellow);
+    QPen   line(Qt::yellow);
     black.setWidth(2);
     line.setWidth(3);
 
@@ -91,7 +93,7 @@ void MainWindow::IterateOverTree(Node *Current)
     }
     if (Current->ElsePart != NULL)
     {
-        scene->addLine(bedayaX,bedayaY,X+240,Y+100,line);
+        scene->addLine(bedayaX,bedayaY,X+140,Y+100,line);
         X+=100;
         Y+=100;
         TempX= X;
@@ -104,7 +106,7 @@ void MainWindow::IterateOverTree(Node *Current)
         list<Node *> L = Current->NextTo;
         for (list<Node *>::iterator it = L.begin(); it != L.end(); ++it)
         {
-            QPen   lin(Qt::magenta);
+            QPen   lin(Qt::red);
             scene->addLine(bedayaX+40,bedayaY-25,X+100,Y+25,lin);
             X+=100;
             TempX = X;
@@ -124,7 +126,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::start_Scan()
+void MainWindow::parse()
 {
     ui->graphicsView->clearFocus();
     scene->clearSelection();
@@ -146,22 +148,24 @@ void MainWindow::start_Scan()
     P.cutting_parsing_input(parserIn);
     Tree = P.prog();
     if(P.getDrawFlag()){
-    IterateOverTree(Tree); // tyb swani
+    IterateOverTree(Tree);
     }
-    //if(result== "") return;
-    qDebug()<<result;
+    delete Tree;
+}
+
+void MainWindow::start_Scan()
+{
+
+    QString result = this->scanner->printTokenList(ui->Input->toPlainText().toStdString());
+
     ui->Output->clear();
     ui->Output->setPlainText(result);
-    delete Tree;
 }
 void MainWindow::start_Scan_File()
 {
     QString result = this->scanner->getStringFile();
-   // if(result== "") return;
     ui->Input->setPlainText(result);
-    qDebug()<<result;
 
     ui->Output->clear();
-//    ui->Output->setPlainText(scanner->printTokenList(result.toStdString()));
 
 }

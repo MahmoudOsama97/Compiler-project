@@ -55,6 +55,7 @@ public:
 public slots:
     void start_Scan();
     void start_Scan_File();
+    void parse();
 
 };
 #endif // MAINWINDOW_H
