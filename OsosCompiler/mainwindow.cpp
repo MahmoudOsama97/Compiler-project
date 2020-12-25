@@ -139,14 +139,15 @@ void MainWindow::start_Scan()
 
     Node* Tree = new Node();
     Parser P;
+    P.setDrawFlag(true);
     string parserIn = this->scanner->getParserInput();
     cout << "From Here" << endl;
     cout << parserIn << endl;
     P.cutting_parsing_input(parserIn);
     Tree = P.prog();
-
+    if(P.getDrawFlag()){
     IterateOverTree(Tree); // tyb swani
-
+    }
     //if(result== "") return;
     qDebug()<<result;
     ui->Output->clear();

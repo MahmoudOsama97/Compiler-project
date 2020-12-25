@@ -10,11 +10,12 @@
 
 using namespace std;
 
-
 class Node
 {
 
 public:
+
+
     enum NodeType
     {
         Undefined, Box, Circle
@@ -50,6 +51,8 @@ public:
 class Parser
 {
 public:
+
+
     string token;
     Parser()
     {
@@ -81,6 +84,15 @@ public:
         return Program;
     }
 
+    void setDrawFlag(bool flag){
+
+        drawFlag=flag;
+    }
+
+    bool getDrawFlag(void){
+
+        return drawFlag;
+    }
 
 private:
     int z;
@@ -88,6 +100,7 @@ private:
     vector <string> tokensvec;
     string tokentemp;
     string value;
+    bool drawFlag=1;
 
 
     void match(string s)
@@ -117,6 +130,8 @@ private:
         }
         else
         {
+            cout<<"fe error yaba\n";
+             drawFlag=0;
              QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
         }
     }
@@ -166,7 +181,7 @@ private:
         case WRITE:
             Stmt = write_stmt(); break;
         case ERROR: // el mafrod el repeat leha 2 children
-           // QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
+            QMessageBox::warning(NULL,"Language Error","Not Accepted ");
            return NULL;
         default:
             break;
