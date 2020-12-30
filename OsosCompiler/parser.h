@@ -80,7 +80,7 @@ public:
     {
         Node* Program = new Node();
         Program = stmt_seq();
-        cout << endl << "Program found" << endl;
+        //cout << endl << "Program found" << endl;
         return Program;
     }
 
@@ -138,7 +138,6 @@ private:
         }
         else
         {
-            cout<<"fe error yaba\n";
             drawFlag=0;
             QMessageBox::warning(NULL,"Language Error","Not Accepted TINY Language");
         }
@@ -224,7 +223,7 @@ private:
             IfStmt->ElsePart = stmt_seq();
         }
         match("end");
-        cout << "if statement end" << endl;
+        //cout << "if statement end" << endl;
         conditionFlag--;
         return IfStmt;
     }
@@ -240,7 +239,7 @@ private:
         RepeatStmt->Left = stmt_seq();
         match("until");
         RepeatStmt->Right = exp();
-        cout << "repeat end" << endl;
+        //cout << "repeat end" << endl;
         return RepeatStmt;
     }
 
@@ -256,7 +255,7 @@ private:
         match(":=");
         AssignStmt->Left = exp();
 
-        cout << "assignment end" << endl;
+        //cout << "assignment end" << endl;
         return AssignStmt;
     }
 
@@ -270,7 +269,7 @@ private:
         ReadStmt->Title = "read";
         ReadStmt->Details = v[z].second;
         match("identifier");
-        cout << "read end" << endl;
+        //cout << "read end" << endl;
         return ReadStmt;
     }
 
@@ -283,7 +282,7 @@ private:
         match("write");
         WriteStmt->Left = exp();
         WriteStmt->Title = "write";
-        cout << "write end" << endl;
+        //cout << "write end" << endl;
         return WriteStmt;
     }
 
@@ -302,7 +301,7 @@ private:
             Exp->Left = Expo;
             Exp->Right = simple_exp();
         }
-        cout << "exp end" << endl;
+        //cout << "exp end" << endl;
         return Exp;
     }
 
@@ -342,7 +341,7 @@ private:
             SimpleExp->Left = SimpleExpo;
             SimpleExp->Right = term();
         }
-        cout << "simple exp end" << endl;
+        //cout << "simple exp end" << endl;
         return SimpleExp;
     }
 
@@ -381,7 +380,7 @@ private:
             Term->Left = Termo;
             Term->Right = factor();
         }
-        cout << "term end" << endl;
+        //cout << "term end" << endl;
         return Term;
     }
 
@@ -430,7 +429,7 @@ private:
             match("identifier");
             Factor->Title = "id";
         }
-        cout << "factor end" << endl;
+        //cout << "factor end" << endl;
         return Factor;
     }
 

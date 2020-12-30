@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Parser
+Comment=Parse TINY Language
+Exec=Parser
+Icon=compiler
+Categories=Application;
+X-AppImage-Version=43ec63b

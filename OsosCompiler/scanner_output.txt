@@ -14,12 +14,6 @@ fact , IDENTIFIER
 1 , NUMBER 
 ; , SEMICOLON 
 repeat , REPEAT 
-fact , IDENTIFIER 
-:= , ASSIGN 
-fact , IDENTIFIER 
-* , MULT 
-x , IDENTIFIER 
-; , SEMICOLON 
 x , IDENTIFIER 
 := , ASSIGN 
 x , IDENTIFIER 
